@@ -1,0 +1,169 @@
+*, *::after, *::before {
+	box-sizing: border-box;
+}
+
+:root {
+	--cell-size: 100px;
+	--mark-size: calc(var(--cell-size) * .9);
+}
+
+body {
+	margin: 0;
+}
+
+/* ===========九宮格區塊===================== */
+.board {
+	width: 100vw;
+	height: 100vh;
+	
+/* cell垂直水平置中，中間無空白 */
+	justify-content: center;
+	align-content: center;
+
+/* cell"中"的內容垂直水平置中 */
+	justify-items: center;
+	align-items: center;
+
+/* 三乘三方塊 */
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+	width: var(--cell-size);	/* 100px */
+	height: var(--cell-size); 	/* 100px */
+	border: 1px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
+}
+
+
+/* 去除九宮格四周框線 */
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+	border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+	border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+	border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+	border-bottom: none;
+}
+
+
+/* 有X或O圖案的格子會出現禁止圖案 */
+.cell.x,
+.cell.circle {
+	cursor: not-allowed;
+}
+
+
+/* hover沒有x及circle屬性的空白格子的圖案為淺灰色 */
+.cell.x::before,
+.cell.x::after,
+.cell.circle::before {
+	background-color: black;
+}
+
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+	background-color: lightgray;
+}
+
+
+/* ===========X 圖案====================== */
+.cell.x::before,
+.cell.x::after,
+ /* (hover沒有x及circle屬性的空白格子會出現X圖案) */
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  content: '';
+  width: calc(var(--mark-size) * .15);
+  height: var(--mark-size);
+	/* 設定絕對定位，兩斜線在畫面上的角度才會呈現90度 */
+	position: absolute;
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::before {
+	transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after {
+	transform: rotate(-45deg);
+}
+
+
+/* ===========O 圖案====================== */
+.cell.circle::before,
+.cell.circle::after,
+ /* (hover沒有x及circle屬性的空白格子會出現Y圖案) */
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  content: '';
+	position: absolute;
+	border-radius: 50%;
+}
+
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+	width: var(--mark-size);
+	height: var(--mark-size);
+}
+
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+	width: calc(var(--mark-size) * .7);
+	height: calc(var(--mark-size) * .7);
+	background-color: white;
+}
+
+
+/* ===========勝負訊息====================== */
+.winning-message {
+	display: none;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, .9);
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 5rem;
+}
+
+.winning-message button {
+	font-size: 3rem;
+	background-color: white;
+	border: 1px solid black;
+	padding: .25em .5em;
+	cursor: pointer;
+}
+
+.winning-message button:hover {
+	background-color: black;
+	border: 1px solid white;
+	color: white;
+}
+
+.winning-message.show {
+	display: flex;
+}

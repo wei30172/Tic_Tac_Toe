@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+		<!-- defer:頁面已完成加載後，才會執行腳本，類似把js放頁尾的效果 -->
+		<script src="script.js" defer></script>
+    <title>Tic_Tac_Toe</title>
+</head>
+<body>
+    <!-- 以class來寫CSS，id用來寫js做區隔 -->
+		
+		<!-- 九宮格區塊 -->
+		<div class="board" id="board">
+			<div class="cell" data-cell></div>
+			<div class="cell" data-cell></div>
+			<div class="cell" data-cell></div>
+			<div class="cell" data-cell></div>
+			<div class="cell" data-cell></div>
+			<div class="cell" data-cell></div>
+			<div class="cell" data-cell></div>
+			<div class="cell" data-cell></div>
+			<div class="cell" data-cell></div>
+		</div>
+
+		<!-- 勝負訊息 -->
+		<div class="winning-message" id="winningMessage">
+			<div data-winning-message-text>Wins!</div>
+			<button id="restartButton">Restart</button>
+		</div>
+</body>
+</html>
