@@ -112,7 +112,7 @@ body {
 /* ===========O 圖案====================== */
 .cell.circle::before,
 .cell.circle::after,
- /* (hover沒有x及circle屬性的空白格子會出現Y圖案) */
+ /* (hover沒有x及circle屬性的空白格子會出現O圖案) */
 .board.circle .cell:not(.x):not(.circle):hover::before,
 .board.circle .cell:not(.x):not(.circle):hover::after {
   content: '';

@@ -77,13 +77,6 @@ function endGame(draw) {
   winningMessageElement.classList.add('show')
 }
 
-function isDraw() {
-  // 取
-  return [...cellElements].every(cell => {
-    return cell.classList.contains(X_CLASS) || 
-    cell.classList.contains(CIRCLE_CLASS)
-  })
-}
 
 // place Mark 填上圈圈或叉叉
 function placeMark(cell, currentClass) {
@@ -95,6 +88,23 @@ function swapTurns() {
   circleTurn = !circleTurn;
 }
 
+// Check For Win 確認勝負
+function checkWin(currentClass) {
+  return WINNING_COMBINATION.some(combination => {
+    return combination.every(index => {
+      return cellElements[index].classList.contains(currentClass)
+    })
+  })
+}
+
+// Check For Draw 平手
+function isDraw() {
+  return [...cellElements].every(cell => {
+    return cell.classList.contains(X_CLASS) || 
+    cell.classList.contains(CIRCLE_CLASS)
+  })
+}
+
 function setBoardHoverClass() {
   board.classList.remove(X_CLASS);
   board.classList.remove(CIRCLE_CLASS);
@@ -103,13 +113,4 @@ function setBoardHoverClass() {
   } else {
     board.classList.add(X_CLASS);
   }
-}
-
-// Check For Win 確認勝負
-function checkWin(currentClass) {
-  return WINNING_COMBINATION.some(combination => {
-    return combination.every(index => {
-      return cellElements[index].classList.contains(currentClass)
-    })
-  })
 }
